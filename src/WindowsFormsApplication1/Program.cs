@@ -23,34 +23,16 @@ namespace WindowsFormsApplication1
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MyServer());
+
             var myServer = new MyServer();
             var myClient = new MyClient();
-
-            /*
-            var registry = new ExtensionRegistry();
-            registry.AddOptionalExtension(new AckExtension()
-            {
-                MessagesPerAck = 200,
-                AckExpireTime = TimeSpan.FromSeconds(1)
-            });
-            registry.AddOptionalExtension(new DotNetTypeExtension());
-            registry.AddOptionalExtension(new FastJsonExtension());
-            var server = new SharpMessagingServer(registry);
-            server.FrameReceived = OnFrame;
-            server.Start(8334);
-
-            CreateClient();
-
-            Console.ReadLine();
-            */
-
+            
             myClient.Show();
             myServer.Show();
-
+            
             Application.Run();
 
-
+            
         }
 
         public static void CreateClient()

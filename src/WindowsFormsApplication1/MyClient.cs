@@ -22,9 +22,9 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             initialClient();
 
-            
+
         }
-        
+
 
         public void initialClient()
         {
@@ -39,14 +39,32 @@ namespace WindowsFormsApplication1
             client = new SharpMessagingClient("MyClient", registry);
             client.Start("localhost", 8334);
 
-            client.Send(new MessageFrame("Hi, How are you?"));
             
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             client.Send(new MessageFrame(this.clientMessage.Text));
+            clearInput();
+            this.clientMessage.Select();
         }
+        
+
+        private void Enter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                client.Send(new MessageFrame(this.clientMessage.Text));
+                clearInput();
+            }
+        }
+
+        public void clearInput()
+        {
+            Invoke((MethodInvoker)delegate {
+                this.clientMessage.Clear();
+            });
+        }
+
     }
 }

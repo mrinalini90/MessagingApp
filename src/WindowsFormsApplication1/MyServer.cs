@@ -20,12 +20,8 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             initiateServer();
 
-            
+            //Application.Run(new MyClient());
 
-        }
-
-        private void MyServer_Load(object sender, EventArgs e)
-        {
         }
 
         public void initiateServer()
@@ -43,7 +39,8 @@ namespace WindowsFormsApplication1
             server.FrameReceived = OnFrame;
             server.Start(8334);
             this.recievedTextBox.Text = "Server Started!";
-            //Application.Run(new MyClient());
+            
+
 
         }
 
@@ -52,10 +49,10 @@ namespace WindowsFormsApplication1
             var msg = Encoding.ASCII.GetString(frame.PayloadBuffer.Array, frame.PayloadBuffer.Offset,
                 frame.PayloadBuffer.Count);
 
-            this.recieveMessage.Text = msg;
+            UpdateTextBox(msg, channel.ClientName);
 
             Console.WriteLine();
-            Console.WriteLine("Received '" + msg);
+            Console.WriteLine("Received '" + msg + "' from " + channel.RemoteEndPoint);
 
             
 
@@ -64,6 +61,13 @@ namespace WindowsFormsApplication1
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void UpdateTextBox(string message, string sender)
+        {
+            Invoke((MethodInvoker)delegate {
+                this.recieveMessage.AppendText("Message From " + sender + ": " +message + "\r\n");
+            });
         }
     }
 }

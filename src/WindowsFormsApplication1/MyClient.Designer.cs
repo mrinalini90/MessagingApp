@@ -40,6 +40,7 @@
             this.clientMessage.Name = "clientMessage";
             this.clientMessage.Size = new System.Drawing.Size(176, 22);
             this.clientMessage.TabIndex = 0;
+            this.clientMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
             // 
             // sentBtn
             // 
