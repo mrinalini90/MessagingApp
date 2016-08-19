@@ -10,7 +10,7 @@ using SharpMessaging.Server;
 using System.Windows.Forms;
 using SharpMessaging;
 
-namespace WindowsFormsApplication1
+namespace IntraChat
 {
     public partial class MyClient : Form
     {

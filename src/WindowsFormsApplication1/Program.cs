@@ -10,7 +10,7 @@ using SharpMessaging.Server;
 using System.Windows.Forms;
 using SharpMessaging;
 
-namespace WindowsFormsApplication1
+namespace IntraChat
 {
     static class Program
     {
@@ -24,11 +24,16 @@ namespace WindowsFormsApplication1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var myServer = new MyServer();
-            var myClient = new MyClient();
-            
-            myClient.Show();
-            myServer.Show();
+            //var myServer = new MyServer();
+            //var myClient = new MyClient();
+            var myRegistration = new Registration();
+            var myLogin = new Login();
+
+
+            //myClient.Show();
+            //myServer.Show();
+            myLogin.Show();
+            //myRegistration.Show();
             
             Application.Run();
 
