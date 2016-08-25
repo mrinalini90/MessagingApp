@@ -65,8 +65,8 @@ namespace IntraChat.IntraSqlConnection
             try
             {
                 con.Open();
-                MySqlCommand cmd1 = new MySqlCommand(command, con);
-                int numberOfRowUpdated = cmd1.ExecuteNonQuery();
+                cmd = new MySqlCommand(command, con);
+                cmd.ExecuteNonQuery();
                 Console.WriteLine("User information updated!");
                 //MessageBox.Show("Registration completed!");
             }
@@ -94,14 +94,15 @@ namespace IntraChat.IntraSqlConnection
 
             string query = "Select count(*) FROM my_test.user where Username='" + username + "' and Pwd='" + password + "';";
             con.Open();
-            MySqlCommand cmd2 = new MySqlCommand(query, con);
-            Int32 verify = Convert.ToInt32(cmd2.ExecuteScalar());
+            cmd = new MySqlCommand(query, con);
+            Int32 verify = Convert.ToInt32(cmd.ExecuteScalar());
             if (verify >= 1)
             {
                 //MessageBox.Show("Matched");
                 con.Close();
                 return true;
             }
+            con.Close();
             return false;
         }
         

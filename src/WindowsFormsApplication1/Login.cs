@@ -32,13 +32,16 @@ namespace IntraChat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void loginBtn_Click(object sender, EventArgs e)
+
+
+        private void loginBtn_Click_1(object sender, EventArgs e)
         {
             if (loginUsernameTextBox.Text != "" || loginPasswordTextBox.Text != "")
             {
-                if (con.verifyUserInformation(loginUsernameTextBox.Text, loginPasswordTextBox.Text, this)){
+                if (con.verifyUserInformation(loginUsernameTextBox.Text, loginPasswordTextBox.Text, this))
+                {
                     //update ip address and online status in the database 
-                    con.updateLoggedinUser(loginUsernameTextBox.Text,Registration.GetLocalIPAddress(),"T");
+                    con.updateLoggedinUser(loginUsernameTextBox.Text, Registration.GetLocalIPAddress(), "T");
 
                     //start local server and client
                     var myServer = new MyServer();
@@ -47,17 +50,19 @@ namespace IntraChat
                     myClient.Show();
                     myServer.Show();
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Wrong Username or Password. Please enter again.");
                     loginUsernameTextBox.Clear();
                     loginPasswordTextBox.Clear();
-                }               
+                }
             }
-            else {
+            else
+            {
                 MessageBox.Show("Please Insert your Username and Password");
             }
 
-            
+
         }
     }
 }
