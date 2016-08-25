@@ -9,6 +9,7 @@ using SharpMessaging.Frames;
 using SharpMessaging.Server;
 using System.Windows.Forms;
 using SharpMessaging;
+using System.Threading;
 
 namespace IntraChat
 {
@@ -25,8 +26,10 @@ namespace IntraChat
             Application.SetCompatibleTextRenderingDefault(false);
 
             //var myServer = new MyServer();
+            //int milliseconds = 5000;
+            //Thread.Sleep(milliseconds);
             //var myClient = new MyClient();
-            var myRegistration = new Registration();
+            //var myRegistration = new Registration();
             var myLogin = new Login();
 
 
@@ -36,64 +39,6 @@ namespace IntraChat
             //myRegistration.Show();
             
             Application.Run();
-
-            
-        }
-
-        public static void CreateClient()
-        {
-            var registry = new ExtensionRegistry();
-            registry.AddRequiredExtension(new AckExtension()
-            {
-                MessagesPerAck = 10,
-                AckExpireTime = TimeSpan.FromSeconds(1)
-            });
-            //registry.AddRequiredExtension(new FastJsonExtension());
-            var client = new SharpMessagingClient("MyClient", registry);
-            client.Start("localhost", 8334);
-            client.Send(new MessageFrame("Hi, How are you?"));
-            Console.WriteLine("Sent!");
-            Console.ReadLine();
-        }
-
-        //private static int batch;
-        private static void OnFrame(ServerClient channel, MessageFrame frame)
-        {
-            var msg = Encoding.ASCII.GetString(frame.PayloadBuffer.Array, frame.PayloadBuffer.Offset,
-                frame.PayloadBuffer.Count);
-
-            Console.WriteLine();
-            Console.WriteLine("Received '" + msg + "' from " + channel.RemoteEndPoint);
-
-            
-            recievedMessage(msg);
-            
-        }
-
-        public static void sendBtnOnClick(string message)
-        {
-            var registry = new ExtensionRegistry();
-            registry.AddRequiredExtension(new AckExtension()
-            {
-                MessagesPerAck = 10,
-                AckExpireTime = TimeSpan.FromSeconds(1)
-            });
-            //registry.AddRequiredExtension(new FastJsonExtension());
-            var client = new SharpMessagingClient("MyClient", registry);
-            client.Start("localhost", 8334);
-            client.Send(new MessageFrame(message));
-            Console.WriteLine("Sent!");
-            Console.ReadLine();
-
-        }
-
-        public static string recievedMessage(string message)
-        {
-
-            return message;
-
         }
     }
-
-    
 }
