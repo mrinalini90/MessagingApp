@@ -27,11 +27,20 @@ namespace IntraChat
 
             if(UsernameTextBox.Text != "" && PasswordTextBox.Text != "" && FirstNameTextBox.Text != "" && LastNameTextBox.Text != "")
             {
-
-                con.createNewUser(UsernameTextBox.Text, PasswordTextBox.Text, FirstNameTextBox.Text, LastNameTextBox.Text, GetLocalIPAddress(), "F", 8834);
-                this.Close();
-                    
-            }else
+                if (con.isUserNameAlreadyExist(UsernameTextBox.Text))
+                {
+                    MessageBox.Show("This Username is already exist. Please change your Username and try again.");
+                    this.UsernameTextBox.Clear();
+                    this.PasswordTextBox.Clear();
+                    this.FirstNameTextBox.Clear();
+                    this.LastNameTextBox.Clear();
+                }
+                else {
+                    con.createNewUser(UsernameTextBox.Text, PasswordTextBox.Text, FirstNameTextBox.Text, LastNameTextBox.Text, GetLocalIPAddress(), "F", 8834);
+                    this.Close();
+                }    
+            }
+            else
             {
 
                 MessageBox.Show("Please complete all fields..");
@@ -53,11 +62,9 @@ namespace IntraChat
             throw new Exception("Local IP Address Not Found!");
         }
 
-
-
-        private void LastNameTextBox_TextChanged(object sender, EventArgs e)
+        private void RegisCancelBtn_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

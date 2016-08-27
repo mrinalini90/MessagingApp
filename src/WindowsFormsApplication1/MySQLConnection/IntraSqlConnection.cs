@@ -47,6 +47,8 @@ namespace IntraChat.IntraSqlConnection
             con.Close();
         }
 
+        
+
         /// <summary>
         /// 
         /// </summary>
@@ -82,6 +84,8 @@ namespace IntraChat.IntraSqlConnection
             con.Close();
         }
 
+
+
         /// <summary>
         /// This method used to verify the user information inputs in login page by user.
         /// The value of 'verify' wil be 0 if no matching otherwise 1
@@ -105,6 +109,18 @@ namespace IntraChat.IntraSqlConnection
             con.Close();
             return false;
         }
-        
+
+        public bool isUserNameAlreadyExist(string Username)
+        {
+            bool exist = false;
+            string query1 = "SELECT COUNT(*) FROM my_test.user WHERE Username='" + Username + "'";
+            con.Open();
+
+            cmd = new MySqlCommand(query1,con);
+            exist = int.Parse(cmd.ExecuteScalar().ToString()) > 0;
+
+            con.Close();
+            return exist;
+        }
     }
 }
