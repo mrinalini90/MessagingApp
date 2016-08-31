@@ -18,15 +18,15 @@ namespace IntraChat.IntraSqlConnection
 
         public IntraSqlConnection()
         {
-            con = new MySqlConnection("server=127.0.0.1; user id=root; database=my_test; password=Kauarmaa1;");
-            
+            con = new MySqlConnection("server=localhost; user id=root; database=intra_db; password=1234;");
+
         }
 
 
-        public void createNewUser(string username, string password, string firstname, string lastname,string ip_address,string online_status, int port)
+        public void createNewUser(string username, string password, string firstname, string lastname, string ip_address, string online_status, int port)
         {
-            string command = "INSERT INTO my_test.user VALUES ('" + username + "', '" + password + "', '" + firstname + "', '" + lastname + "','" + ip_address + "', '" + online_status + "', '" + port + "')";
-            
+            string command = "INSERT INTO intra_db.user VALUES ('" + username + "', '" + password + "', '" + firstname + "', '" + lastname + "','" + ip_address + "', " + 0 + ", '" + port + "')";
+
             try
             {
                 con.Open();
@@ -43,11 +43,11 @@ namespace IntraChat.IntraSqlConnection
             catch (System.InvalidOperationException)
             {
                 MessageBox.Show("This username is already existed!");
-            }    
+            }
             con.Close();
         }
 
-        
+
 
         /// <summary>
         /// 
@@ -60,9 +60,9 @@ namespace IntraChat.IntraSqlConnection
         /// <param name="online_status"></param>
         /// <param name="port"></param>
         /// <param name="regisForm"></param>
-        public void updateLoggedinUser(string username, string ip_address, string online_status)
+        public void updateLoggedinUser(string username, string ip_address, int online_status)
         {
-            string command = "UPDATE my_test.user SET ip_address='" + ip_address + "',online_status='" + online_status + "' WHERE Username='" + username + "';";
+            string command = "UPDATE intra_db.user SET ip_address='" + ip_address + "',online_status=" + online_status + " WHERE Username='" + username + "';";
 
             try
             {
@@ -94,9 +94,10 @@ namespace IntraChat.IntraSqlConnection
         /// <param name="password"></param>
         /// <param name="login"></param>
         /// <returns>true/false</returns>
-        public bool verifyUserInformation(string username, string password, Login login) {
+        public bool verifyUserInformation(string username, string password, Login login)
+        {
 
-            string query = "Select count(*) FROM my_test.user where Username='" + username + "' and Pwd='" + password + "';";
+            string query = "Select count(*) FROM intra_db.user where Username='" + username + "' and Pwd='" + password + "';";
             con.Open();
             cmd = new MySqlCommand(query, con);
             Int32 verify = Convert.ToInt32(cmd.ExecuteScalar());
@@ -107,20 +108,23 @@ namespace IntraChat.IntraSqlConnection
                 return true;
             }
             con.Close();
+
             return false;
         }
 
         public bool isUserNameAlreadyExist(string Username)
         {
             bool exist = false;
-            string query1 = "SELECT COUNT(*) FROM my_test.user WHERE Username='" + Username + "'";
+            string query1 = "SELECT COUNT(*) FROM intra_db.user WHERE Username='" + Username + "'";
             con.Open();
 
-            cmd = new MySqlCommand(query1,con);
+            cmd = new MySqlCommand(query1, con);
             exist = int.Parse(cmd.ExecuteScalar().ToString()) > 0;
 
             con.Close();
             return exist;
         }
+
     }
 }
+

@@ -41,7 +41,7 @@ namespace IntraChat
                 if (con.verifyUserInformation(loginUsernameTextBox.Text, loginPasswordTextBox.Text, this))
                 {
                     //update ip address and online status in the database 
-                    con.updateLoggedinUser(loginUsernameTextBox.Text, Registration.GetLocalIPAddress(), "T");
+                    con.updateLoggedinUser(loginUsernameTextBox.Text, Registration.GetLocalIPAddress(), 1);
 
                     //start local server and client
                     var myServer = new MyServer();
