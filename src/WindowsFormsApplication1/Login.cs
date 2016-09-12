@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace IntraChat
     public partial class Login : Form
     {
         private IntraSqlConnection.IntraSqlConnection con = new IntraSqlConnection.IntraSqlConnection();
+        private User current_user_session;
 
         public Login()
         {
@@ -38,17 +40,27 @@ namespace IntraChat
         {
             if (loginUsernameTextBox.Text != "" || loginPasswordTextBox.Text != "")
             {
-                if (con.verifyUserInformation(loginUsernameTextBox.Text, loginPasswordTextBox.Text, this))
+                if (con.verifyUserInformation(loginUsernameTextBox.Text, loginPasswordTextBox.Text))
                 {
                     //update ip address and online status in the database 
-                    con.updateLoggedinUser(loginUsernameTextBox.Text, Registration.GetLocalIPAddress(), 1);
+                    con.updateLoggedinUser(loginUsernameTextBox.Text, NetworkConfiguration.getLocalIPAddress(), 1, NetworkConfiguration.getPortNumber());
 
-                    //start local server and client
-                    var myServer = new MyServer();
-                    var myClient = new MyClient();
+                    
+
+                    current_user_session = con.userInitiate(loginUsernameTextBox.Text);
+                    //Console.WriteLine("Number of contact : " + current_contact_session.Count);
+                    //Console.WriteLine("Corrent IP fron current user : " + current_user_session.getIpAddress());
+                    
                     Close();
-                    myClient.Show();
+
+                    /*
+                    Console.WriteLine(current_user_session.getFirstName());
+                    Console.WriteLine(current_user_session.getLastName());
+                    Console.WriteLine(current_user_session.getIpAddress());*/
+                    //start local server and client
+                    var myServer = new MyServer(current_user_session);
                     myServer.Show();
+
                 }
                 else
                 {
