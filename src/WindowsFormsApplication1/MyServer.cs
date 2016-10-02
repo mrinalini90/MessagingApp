@@ -71,7 +71,7 @@ namespace IntraChat
         public void UpdateTextBox(string message, string sender)
         {
             Invoke((MethodInvoker)delegate {
-                this.recieveMessage.AppendText("Message From " + current_user_session.getFirstName() + ": " +message + "\r\n");
+                this.recieveMessage.AppendText(current_user_session.getFirstName() + ": " +message + "\r\n");
             });
         }
     }

@@ -19,7 +19,7 @@ namespace IntraChat.IntraSqlConnection
 
         public IntraSqlConnection()
         {
-            con = new MySqlConnection("server=localhost; user id=root; database=intra_db; password=1123;");
+            con = new MySqlConnection("server=localhost; user id=root; database=intra_db; password=1234;");
 
         }
 

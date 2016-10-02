@@ -40,11 +40,11 @@ namespace IntraChat
                 MessagesPerAck = 10,
                 AckExpireTime = TimeSpan.FromSeconds(1)
             });
-
-            client = new SharpMessagingClient("MyClient", registry);
+            current_contact_session = con.retrieveContactList(current_user_session.getUsername(), this);
+            client = new SharpMessagingClient(current_user_session.getFirstName(), registry);
             client.Start("localhost", current_user_session.getPortNumber());
 
-            current_contact_session = con.retrieveContactList(current_user_session.getUsername(), this);
+            
             /*contact_data_table.Columns[1].Name = "Friends";
             contact_data_table.Columns[1].DataPropertyName = "My Contacts";
             contact_data_table.Columns[0].Name = "Added Date";
