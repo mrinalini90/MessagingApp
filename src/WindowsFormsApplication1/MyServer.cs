@@ -13,15 +13,13 @@ namespace IntraChat
 {
     public partial class MyServer : Form
     {
+        
 
-        public User current_user_session;
-
-        public MyServer(User session)
+        public MyServer()
         {
             InitializeComponent();
-            this.current_user_session = session;
-
             initiateServer();
+
             //Application.Run(new MyClient());
 
         }
@@ -39,13 +37,10 @@ namespace IntraChat
             var server = new SharpMessagingServer(registry);
             
             server.FrameReceived = OnFrame;
-            Console.WriteLine(current_user_session.getPortNumber());
-            server.Start(current_user_session.getPortNumber());
+            server.Start(8334);
             this.recievedTextBox.Text = "Server Started!";
+            
 
-
-            var myClient = new MyClient(this, current_user_session);
-            myClient.Show();
 
         }
 
@@ -71,7 +66,7 @@ namespace IntraChat
         public void UpdateTextBox(string message, string sender)
         {
             Invoke((MethodInvoker)delegate {
-                this.recieveMessage.AppendText(current_user_session.getFirstName() + ": " +message + "\r\n");
+                this.recieveMessage.AppendText("Message From " + sender + ": " +message + "\r\n");
             });
         }
     }

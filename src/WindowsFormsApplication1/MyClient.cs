@@ -9,28 +9,23 @@ using SharpMessaging.Frames;
 using SharpMessaging.Server;
 using System.Windows.Forms;
 using SharpMessaging;
-using System.Collections.Generic;
 
 namespace IntraChat
 {
     public partial class MyClient : Form
     {
         public SharpMessagingClient client;
-        private IntraSqlConnection.IntraSqlConnection con = new IntraSqlConnection.IntraSqlConnection();
-        private User current_user_session;
-        private List<Contact> current_contact_session;
-        private MyServer myServer;
 
-        public MyClient(MyServer server, User session)
+        public MyClient()
         {
 
             InitializeComponent();
-            this.current_user_session = session;
             initialClient();
-            this.myServer = server;
+
 
         }
-        
+
+
         public void initialClient()
         {
 
@@ -40,16 +35,11 @@ namespace IntraChat
                 MessagesPerAck = 10,
                 AckExpireTime = TimeSpan.FromSeconds(1)
             });
-            current_contact_session = con.retrieveContactList(current_user_session.getUsername(), this);
-            client = new SharpMessagingClient(current_user_session.getFirstName(), registry);
-            client.Start("localhost", current_user_session.getPortNumber());
+
+            client = new SharpMessagingClient("MyClient", registry);
+            client.Start("localhost", 8334);
 
             
-            /*contact_data_table.Columns[1].Name = "Friends";
-            contact_data_table.Columns[1].DataPropertyName = "My Contacts";
-            contact_data_table.Columns[0].Name = "Added Date";
-            contact_data_table.Columns[0].DataPropertyName = "Date Added";*/
-            contact_data_table.AutoGenerateColumns = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,6 +48,7 @@ namespace IntraChat
             clearInput();
             this.clientMessage.Select();
         }
+        
 
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -75,14 +66,5 @@ namespace IntraChat
             });
         }
 
-        private void logout_btn_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            con.logout(current_user_session.getUsername());
-            client.Close();
-            myServer.Close();
-            var myLogin = new Login();
-            myLogin.Show();
-        }
     }
 }
