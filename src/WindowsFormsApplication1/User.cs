@@ -4,23 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntraChat
+namespace Intrachat
 {
-    public partial class User
+    class User
     {
 
-        private string username, firstName, lastName, ip_address;
+        private string username, firstName, lastName;
 
-        private int online_status, port;
-
-        public User(string username, string firstName, string lastName, string ipAddress, int online_status, int port)
+        public User(string username, string firstName, string lastName)
         {
             this.username = username;
             this.firstName = firstName;
             this.lastName = lastName;
-            this.ip_address = ipAddress;
-            this.online_status = online_status;
-            this.port = port;
 
         }
 
@@ -38,21 +33,5 @@ namespace IntraChat
         {
             return this.lastName;
         }
-
-        public string getIpAddress()
-        {
-            return this.ip_address;
-        }
-
-        public int getOnlineStatus()
-        {
-            return this.online_status;
-        }
-
-        public int getPortNumber()
-        {
-            return this.port;
-        }
-
     }
 }

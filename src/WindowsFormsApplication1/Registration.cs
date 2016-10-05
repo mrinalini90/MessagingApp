@@ -36,7 +36,7 @@ namespace IntraChat
                     this.LastNameTextBox.Clear();
                 }
                 else {
-                    con.createNewUser(UsernameTextBox.Text, PasswordTextBox.Text, FirstNameTextBox.Text, LastNameTextBox.Text, NetworkConfiguration.getLocalIPAddress(), 0, NetworkConfiguration.getPortNumber());
+                    con.createNewUser(UsernameTextBox.Text, PasswordTextBox.Text, FirstNameTextBox.Text, LastNameTextBox.Text, GetLocalIPAddress(), "F", 8834);
                     this.Close();
                 }    
             }
