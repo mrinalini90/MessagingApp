@@ -55,6 +55,7 @@ namespace IntraChat
         private void button1_Click(object sender, EventArgs e)
         {
             client.Send(new MessageFrame(this.clientMessage.Text));
+            UpdateTextBox(this.clientMessage.Text);
             clearInput();
             this.clientMessage.Select();
         }
@@ -64,6 +65,7 @@ namespace IntraChat
             if (e.KeyChar == (char)Keys.Enter)
             {
                 client.Send(new MessageFrame(this.clientMessage.Text));
+                UpdateTextBox(this.clientMessage.Text);
                 clearInput();
             }
         }
@@ -72,6 +74,13 @@ namespace IntraChat
         {
             Invoke((MethodInvoker)delegate {
                 this.clientMessage.Clear();
+            });
+        }
+
+        public void UpdateTextBox(string message)
+        {
+            Invoke((MethodInvoker)delegate {
+                this.recieveMessageBox.AppendText("Me: " + message + "\r\n");
             });
         }
 
